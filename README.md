@@ -7,7 +7,7 @@ ES6 + Babel + Koa Boilerplate
 - [How to use](#How-to-use)
 - [Error Codes](#Error-Codes)
 
-#How to use
+# How to use
 
 `npm run dev` 명령어로 개발 서버를 시작할 수 있고, `npm build`로 ES5 스펙으로 빌드할 수 있습니다. `npm start`를 치면 빌드 후 실행합니다.
 

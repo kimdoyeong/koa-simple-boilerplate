@@ -1,4 +1,5 @@
 import Koa from "koa";
+import bodyParser from "koa-bodyparser";
 import cors from "@koa/cors";
 
 import routes from "./routes";
@@ -7,6 +8,7 @@ import { NotFoundError } from "./lib/errors";
 export const app = new Koa();
 
 app.use(cors());
+app.use(bodyParser());
 
 app.use(async (ctx, next) => {
   try {

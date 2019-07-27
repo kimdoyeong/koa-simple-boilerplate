@@ -2,7 +2,7 @@ import Koa from "koa";
 import cors from "@koa/cors";
 
 import routes from "./routes";
-import { code, getError, throwError } from "./lib/errors";
+import { NotFoundError } from "./lib/errors";
 
 export const app = new Koa();
 
@@ -13,27 +13,15 @@ app.use(async (ctx, next) => {
     await next();
     const status = ctx.status || 404;
     if (status === 404) {
-      ctx.throw(...throwError(code.NOT_FOUND));
+      throw new NotFoundError();
     }
   } catch (e) {
-    let errorCode = code.SERVER_ERROR;
-
-    if (e.errorCode) {
-      errorCode = e.errorCode;
-    }
-
-    const { statusCode, message } = getError(errorCode);
-    if (!ctx.status) {
-      if (statusCode) {
-        ctx.status(statusCode);
-      } else {
-        ctx.status(500);
-      }
-    }
+    const { name, message } = e;
+    const statusCode = e.statusCode || 500;
 
     ctx.body = {
       success: false,
-      error_type: errorCode,
+      error_type: name,
       message,
       status_code: statusCode
     };

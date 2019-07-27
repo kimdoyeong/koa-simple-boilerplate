@@ -17,8 +17,10 @@ app.use(async (ctx, next) => {
     }
   } catch (e) {
     const { name, message } = e;
-    const statusCode = e.statusCode || 500;
+    const statusCode = e.status || 500;
+    console.log(e, e.statusCode);
 
+    ctx.status = statusCode;
     ctx.body = {
       success: false,
       error_type: name,

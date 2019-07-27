@@ -18,7 +18,6 @@ app.use(async (ctx, next) => {
   } catch (e) {
     const { name, message } = e;
     const statusCode = e.status || 500;
-    console.log(e, e.statusCode);
 
     ctx.status = statusCode;
     ctx.body = {
